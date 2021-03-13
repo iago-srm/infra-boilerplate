@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-boilerplate-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-boilerplate-mongo
+  template:
+    metadata:
+      labels:
+        app: nodejs-boilerplate-mongo
+    spec:
+      containers:
+        - name: nodejs-boilerplate-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-boilerplate-mongo-srv
+spec:
+  selector:
+    app: nodejs-boilerplate-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

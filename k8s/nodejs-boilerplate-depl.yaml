@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-boilerplate-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-boilerplate
+  template:
+    metadata:
+      labels:
+        app: nodejs-boilerplate
+    spec:
+      containers:
+        - name: nodejs-boilerplate
+          image: gcr.io/weather-app-298719/nodejs-boilerplate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-boilerplate-srv
+spec:
+  selector:
+    app: nodejs-boilerplate
+  ports:
+    - name: nodejs-boilerplate
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

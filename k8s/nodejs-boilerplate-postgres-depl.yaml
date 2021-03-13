@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-boilerplate-postgres-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-boilerplate-postgres
+  template:
+    metadata:
+      labels:
+        app: nodejs-boilerplate-postgres
+    spec:
+      containers:
+        - name: nodejs-boilerplate-postgres
+          image: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-boilerplate-postgres-srv
+spec:
+  selector:
+    app: nodejs-boilerplate-postgres
+  ports:
+    - name: db
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
