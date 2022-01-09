@@ -15,6 +15,12 @@ spec:
       containers:
         - name: nodejs-boilerplate
           image: gcr.io/weather-app-298719/nodejs-boilerplate
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
